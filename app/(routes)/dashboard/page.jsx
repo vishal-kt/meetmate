@@ -1,8 +1,12 @@
+'use client'
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs'
 import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div>Dashboard
+      <LogoutLink>Logout</LogoutLink>
+    </div>
   )
 }
 
