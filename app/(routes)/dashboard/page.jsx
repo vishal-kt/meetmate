@@ -1,23 +1,38 @@
 'use client'
 import { LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
-import React from 'react'
-import {getFirestore} from "firebase/firestore"
+import React,{useEffect} from 'react'
+import {getFirestore , doc , getDoc} from "firebase/firestore"
 import { app } from '@/config/FirebaseConfig'
+import { useRouter } from 'next/navigation'
 const Dashboard = () => {
   
   const db = getFirestore(app);
-
-  //to get user info from kinde you need to this 
-
   const {user}   = useKindeBrowserClient();
-  const isBusinessRegistered = async()=>{
 
+  const router = useRouter();
+  useEffect(() => {
+    user&&isBusinessRegistered()
+  }, [user]);
+
+  const isBusinessRegistered = async()=>{
     //get data code 
 
-    const docRef = doc(db,"Business",user.email)
-    
+    const docRef = doc(db,"Business",user.email);
+    const docSnap = await getDoc(docRef);
+
+    if(docSnap.exists()){
+      console.log("Document data :", docSnap.data());
+      setLoading(false)
+    }else{
+      console.log("No such document");
+      setLoading(false)
+      router.replace('/create-business');
+    }
   }
   
+  if(loading){
+    return <h2>Loading...</h2>
+  }
   return (
     <div>Dashboard
       <LogoutLink>Logout</LogoutLink>
