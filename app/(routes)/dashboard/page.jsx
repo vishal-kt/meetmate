@@ -8,9 +8,10 @@ const Dashboard = () => {
   
   const db = getFirestore(app);
   const {user}   = useKindeBrowserClient();
-
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  
   useEffect(() => {
     user&&isBusinessRegistered()
   }, [user]);
