@@ -1,7 +1,7 @@
-import { Inter,Outfit } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-Toaster
+
 const inter = Outfit({ subsets: ["latin"] });
 
 export const metadata = {
