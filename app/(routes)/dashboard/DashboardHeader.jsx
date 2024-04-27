@@ -18,7 +18,7 @@ const DashboardHeader = () => {
     const {user} = useKindeBrowserClient();
 
     return user && (
-        <div className='p-4 px-10'>
+        <div className='p-4 px-20'>
             <div >
 
                 <DropdownMenu>
