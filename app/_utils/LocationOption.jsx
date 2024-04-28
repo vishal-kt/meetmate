@@ -12,7 +12,7 @@ export default[
         icon:"/phone.png"
     },
     {
-        name:"other",
+        name:"Other",
         icon:"/other.png"
     },
 ]
