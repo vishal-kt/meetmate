@@ -7,16 +7,28 @@ import { Input } from '@/components/ui/input'
 import { ChevronLeft, Divide } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React ,{useState}from 'react'
+import React ,{useState ,useEffect}from 'react'
 
-function MeetingForm() {
+function MeetingForm({setFormValue}) {
 
     const [duration ,setDuration] = useState(15);
     const [location, setLocation] = useState();
     const [themeColor, setThemeColor] = useState();
-    const handleDurationChange = (value)=>{
-            setDuration(value)
-    }
+    const [locationType, setLocationType] = useState();
+    const [eventName, setEventName] = useState();
+    const [locationUrl, setLocationUrl] = useState();
+
+   
+   
+    useEffect(() => {
+       setFormValue({
+        eventName:eventName,
+        duration:duration,
+        locationType : locationType,
+        locationUrl:locationUrl,
+        themeColor:themeColor    
+       })
+    }, [eventName,duration,locationType,locationUrl,themeColor]);
   return (
     <div className='p-4'>
 
@@ -30,7 +42,9 @@ function MeetingForm() {
 
         <div className='flex flex-col gap-3 my-4'>
             <h2 className='font-bold'>Event Name*</h2>
-            <Input placeholder="Name of your meeting event"></Input>
+            <Input placeholder="Name of your meeting event"
+                onChange = {(event)=>setEventName(event.target.value)}
+            />
             <h2 className='font-bold'>Duration *</h2>
 
             <DropdownMenu>
@@ -39,29 +53,21 @@ function MeetingForm() {
                      {duration}  Min</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem 
-                    onClick={()=>handleDurationChange(15)}
-                    >15 Min</DropdownMenuItem>
-                    <DropdownMenuItem 
-                    onClick={()=>handleDurationChange(30)}
-                    >30 Min</DropdownMenuItem>
-                    <DropdownMenuItem
-                    onClick={()=>handleDurationChange(45)}
-                    >45 Min</DropdownMenuItem>
-                    <DropdownMenuItem
-                     onClick={()=>handleDurationChange(60)}
-                    >60 Min</DropdownMenuItem>
+                    <DropdownMenuItem onClick={()=>setDuration(15)} >15 Min</DropdownMenuItem>
+                    <DropdownMenuItem onClick={()=>setDuration(30)} >30 Min</DropdownMenuItem>
+                    <DropdownMenuItem onClick={()=>setDuration(45)} >45 Min</DropdownMenuItem>
+                    <DropdownMenuItem onClick={()=>setDuration(60)} >60 Min</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
 
         <h2 className='font-bold'>Location * </h2 >
             <div className='grid grid-cols-4 gap-3'>
              {LocationOption.map((option, index)=>(
-                <div className={` border flex flex-col justify-center items-center p-3 rounded-lg 
+                <div key={index} className={` border flex flex-col justify-center items-center p-3 rounded-lg 
                     cursor-pointer
                     hover:bg-blue-100 hover:border-primary
-                    ${location==option.name&&'bg-blue-100 border-primary'}`} 
-                    onClick={()=>setLocation(option.name)}
+                    ${locationType==option.name&&'bg-blue-100 border-primary'}`} 
+                    onClick={()=>setLocationType(option.name)}
                     >
                       <Image src={option.icon} width={30} height={30} alt={option.name}/>  
                         <h2>{option.name}</h2>
@@ -70,16 +76,18 @@ function MeetingForm() {
 
               
                 </div>
-                {location&&<>
+                {locationType&&<>
                 <h2 className='font-bold'>Add  
-                 <span  className='text-blue-800'> {location}  </span>
+                 <span  className='text-blue-800'> {locationType}  </span>
                  Url</h2>
-                <Input placeholder="Add URl"></Input> 
+                <Input placeholder="Add URl"
+                onChange={(event)=>setLocationUrl(event.target.value)}
+                /> 
                 </>}
                <h2 className='font-bold'>Select Theme Color</h2> 
                     <div className='flex justify-evenly'>
                         {ThemeOption.map((color,index)=>(
-                            <div className={`h-7 w-7 rounded-full cursor-pointer ${themeColor==color&&'border border-black '}`}
+                            <div key={index} className={`h-7 w-7 rounded-full cursor-pointer ${themeColor==color&&'border border-black '}`}
                             style={{backgroundColor:color}}
                             onClick={()=>setThemeColor(color)}
                             >
@@ -89,7 +97,9 @@ function MeetingForm() {
        
         </div>
 
-        <Button className="w-full">Create Meeting</Button>
+        <Button className="w-full mt-9"
+       disabled={(!eventName||!duration||!locationType||!locationUrl)}
+        >Create Meeting</Button>
     </div>
 
   )
