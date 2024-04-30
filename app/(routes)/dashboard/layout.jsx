@@ -1,6 +1,7 @@
 import React from 'react'
 import SideNavBar from './_components/SideNavBar'
 import DashboardHeader from './DashboardHeader'
+import { Toaster } from '@/components/ui/sonner'
 
 function DashboardLayout({children}) {
   return (
@@ -11,6 +12,7 @@ function DashboardLayout({children}) {
         </div>
         <div className='ml-64'>
             <DashboardHeader/>
+            <Toaster/>
             {children}
         </div>
     </div>

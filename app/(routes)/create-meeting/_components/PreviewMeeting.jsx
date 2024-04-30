@@ -66,6 +66,7 @@ const createTimeSlot=(interval)=>{
                   selected={date}
                   onSelect={setDate}
                   className="rounded-md border mt-5"
+                  disabled={(date)=>date<=new Date()}
                 />
               </div>
               <div className='flex flex-col w-full 

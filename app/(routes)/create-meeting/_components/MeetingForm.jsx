@@ -4,10 +4,15 @@ import ThemeOption from '@/app/_utils/ThemeOption'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import {getFirestore , doc , setDoc} from "firebase/firestore"
+import { app } from '@/config/FirebaseConfig'
 import { ChevronLeft, Divide } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import React ,{useState ,useEffect}from 'react'
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
+import { useRouter } from 'next/navigation'
 
 function MeetingForm({setFormValue}) {
 
@@ -17,9 +22,11 @@ function MeetingForm({setFormValue}) {
     const [locationType, setLocationType] = useState();
     const [eventName, setEventName] = useState();
     const [locationUrl, setLocationUrl] = useState();
+    const {user} = useKindeBrowserClient();
 
    
-   
+   const db = getFirestore(app);
+   const router = useRouter()
     useEffect(() => {
        setFormValue({
         eventName:eventName,
@@ -29,7 +36,26 @@ function MeetingForm({setFormValue}) {
         themeColor:themeColor    
        })
     }, [eventName,duration,locationType,locationUrl,themeColor]);
-  return (
+  
+    const onCreateClick = async()=>{
+        const id = Date.now().toString();
+        await setDoc(doc(db,'MeetingEvent',id),{
+            id:id,
+            eventName:eventName,
+            duration:duration,
+            locationType : locationType,
+            locationUrl:locationUrl,
+            themeColor:themeColor,
+            businessId:doc(db,'Business',user?.email) ,
+            createdBy:user?.email
+                            
+        }).then(resp=>{
+            toast('New Meeting Event Created!')
+            router.replace('/dashboard/meeting-type')
+        })
+    }
+   
+    return (
     <div className='p-4'>
 
     <Link href={'/dashboard'}>
@@ -99,6 +125,7 @@ function MeetingForm({setFormValue}) {
 
         <Button className="w-full mt-9"
        disabled={(!eventName||!duration||!locationType||!locationUrl)}
+       onClick={()=>onCreateClick()}
         >Create Meeting</Button>
     </div>
 
