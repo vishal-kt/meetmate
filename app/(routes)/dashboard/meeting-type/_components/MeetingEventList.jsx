@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { app } from '@/config/FirebaseConfig'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
-import { getFirestore ,collection,query, where , getDocs, deleteDoc ,doc } from 'firebase/firestore'
+import { getFirestore ,collection,query, where , getDocs, deleteDoc ,doc,getDoc } from 'firebase/firestore'
 import { Clock,MapPin,Copy, Settings , Pen,Trash } from 'lucide-react'
 
 import React ,{useState,useEffect}from 'react'
@@ -21,11 +21,12 @@ const MeetingEventList = () => {
 
     const db = getFirestore(app)
     const {user} = useKindeBrowserClient();
-
+    const [businessInfo, setBusinessInfo] = useState();
     const [eventList , setEventList] = useState([]);
       useEffect(() => {
         
         user&&getEventList();
+        user&&BusinessInfo();
       }, [user]);
 
     const getEventList = async ()=>{
@@ -40,13 +41,25 @@ const MeetingEventList = () => {
     }
 
 
+    const BusinessInfo= async()=>{
+      const docRef = doc(db,"Business",user?.email)
+      const docSnap = await getDoc(docRef)
+      // console.log(docSnap.data());
+      setBusinessInfo(docSnap.data())
+    }
     const onDeleteMeetingEvent = async(event)=>{
         await deleteDoc(doc(db,"MeetingEvent",event?.id))
         .then(resp=>{toast('Meeting Event Deleted!');
         getEventList()
       })
     }
+
     
+    const onCopyClickHandler =(event)=>{
+      const meetingEventUrl = process.env.NEXT_PUBLIC_BASE_URL+'/'+businessInfo.businessName+'/'+event.id
+      navigator.clipboard.writeText(meetingEventUrl);
+      toast('Copied To ClipBoard')
+    }
   return (
 
     <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7' >
@@ -87,8 +100,7 @@ const MeetingEventList = () => {
               <div className='flex justify-between'>
                 <h2 className='flex gap-2 mt-2 text-sm text-primary items-center cursor-pointer'
                 onClick={()=>{
-                  navigator.clipboard.writeText(event?.locationUrl)
-                  toast('Url copied successfully')
+                  onCopyClickHandler(event)
                 }}
                 ><Copy className='h-4 w-4'/>Copy Link</h2>
               
