@@ -3,6 +3,10 @@
 AnyMeeting is a web-based application built with Next.js that allows users to create and join meetings seamlessly. It leverages Kinvey authentication for secure user management.
 [Visit AnyMeeting App](https://meetmate-sepia.vercel.app/)
 
+
+![Meeting App Demo](https://github.com/vishal-kt/meetmate/blob/master/nnn.gif)
+
+
 ## Features
 
 - **User Authentication**: Utilizes Kinvey authentication to securely manage user accounts.
@@ -54,4 +58,3 @@ Contributions are welcome! If you'd like to contribute to the AnyMeeting app, pl
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-![Meeting App Demo](https://github.com/vishal-kt/meetmate/blob/master/nnn.gif)
