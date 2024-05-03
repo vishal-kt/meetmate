@@ -1,8 +1,8 @@
 "use client"
-import { LogoutLink,useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
-import Image from 'next/image'
+import { LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
+import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react'
-import { ChevronDown } from 'lucide-react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,15 +10,13 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu"
 
-  
-
-const DashboardHeader = () => {
-    const {user} = useKindeBrowserClient();
+function DashboardHeader() {
+    const { user } = useKindeBrowserClient();
 
     return user && (
-        <div className='p-4 px-20'>
+        <div className='p-4 px-10'>
             <div >
 
                 <DropdownMenu>

@@ -13,7 +13,8 @@ const firebaseConfig = {
   storageBucket: "meetmate-alpha.appspot.com",
   messagingSenderId: "361168440845",
   appId: "1:361168440845:web:30cee144f6c80e41064f44",
-  measurementId: "G-NJHZKKBNV4"
+  measurementId: "G-NJHZKKBNV4",
+  
 };
 
 // Initialize Firebase
