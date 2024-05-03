@@ -5,7 +5,7 @@ import { CalendarCheck, Clock, LoaderIcon, MapPin, Timer } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import TimeDataSelection from './TimeDataSelection'
+
 import UserFormInfo from './UserFormInfo'
 import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'firebase/firestore'
 import { app } from '@/config/FirebaseConfig'
@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation'
 import Plunk from '@plunk/node'
 import { render } from '@react-email/render';
 import Email from '@/emails'
+import TimeDateSelection from './TimeDateSelection';
 function MeetingTimeDateSelection({eventInfo,businessInfo}) {
     const [date,setDate]=useState(new Date())
     const [timeSlots,setTimeSlots]=useState();
@@ -172,7 +173,7 @@ function MeetingTimeDateSelection({eventInfo,businessInfo}) {
                 </div>
             </div>
             {/* Time & Date Selction  */}
-          {step==1? <TimeDataSelection
+          {step==1? <TimeDateSelection
             date={date}
             enableTimeSlot={enableTimeSlot}
             handleDateChange={handleDateChange}

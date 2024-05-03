@@ -1,21 +1,19 @@
 "use client"
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import MeetingForm from './_components/MeetingForm'
-import PreviewMeeting from './_components/PreviewMeeting'
+import PreviewMeeting from './_components/PreviewMeeting';
 
 function CreateMeeting() {
-  const [formValue, setFormValue] = useState();
+    const [formValue,setFormValue]=useState();
   return (
     <div className='grid grid-cols-1 md:grid-cols-3'>
-      {/*Meeting Form */}
+        {/* Meeting Form  */}
         <div className='shadow-md border h-screen'>
-            <MeetingForm setFormValue={(V)=>setFormValue(V)}/>
+            <MeetingForm setFormValue={(v)=>setFormValue(v)} />
         </div>
-       
-       {/* Preview */}
-        
+        {/* Preview  */}
         <div className='md:col-span-2'>
-        <PreviewMeeting formValue={formValue}/>
+              <PreviewMeeting formValue={formValue}/>  
         </div>
     </div>
   )

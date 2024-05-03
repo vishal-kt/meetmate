@@ -14,7 +14,7 @@ import {
 import LocationOption from '@/app/_utils/LocationOption'
 import Image from 'next/image'
 import Link from 'next/link'
-ThemeOptions
+import ThemeOptions from '@/app/_utils/ThemeOptions'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
 import { app } from '@/config/FirebaseConfig'
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'

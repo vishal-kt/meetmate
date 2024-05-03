@@ -1,12 +1,9 @@
-export default [
+export default[
     {
         day:'Sunday'
     },
     {
         day:'Monday'
-    },
-    {
-        day:'Tuesday'
     },
     {
         day:'Wednesday'

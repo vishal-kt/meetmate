@@ -9,13 +9,13 @@ function Hero() {
   return (
     <div className='flex flex-col justify-center items-center my-20'>
         <div className='hidden lg:block'>
-            <Image src='/profile/profile1.png' width={100} height={100}
+            <Image src='/profile1.png' width={100} height={100}
             className='h-[100px] object-cover rounded-full absolute right-36'/>
-             <Image src='/profile/profile3.png' width={100} height={100}
+             <Image src='/profile3.png' width={100} height={100}
             className='h-[100px] object-cover rounded-full absolute top-48 left-16'/>
-             <Image src='/profile/profile2.png' width={100} height={100}
+             <Image src='/profile2.png' width={100} height={100}
             className='h-[100px] object-cover rounded-full absolute bottom-20 left-36'/>
-              <Image src='/profile/profile4.png' width={100} height={100}
+              <Image src='/profile2.png' width={100} height={100}
             className='h-[100px] object-cover rounded-full absolute right-16 bottom-32' />
         </div>
         <div className='text-center max-w-3xl'>
@@ -25,13 +25,12 @@ function Hero() {
             <h3 className='text-sm'>Sign Up free with Google and Facebook</h3>
             <div className='flex justify-center gap-8'>
                <LoginLink> <Button className="p-7 flex gap-4">
-                    <Image src='/google.svg' alt='google'
+                    <Image src='/google.png' alt='google'
                     width={40} height={40}/>
                     Sign up with Google</Button>
                     </LoginLink>
-
                     <LoginLink>  <Button className="p-7 flex gap-4">
-                    <Image src='/fb.svg' alt='google'
+                    <Image src='/facebook.png' alt='google'
                     width={40} height={40}/>
                     Sign up with Facebook</Button></LoginLink>
             </div>
